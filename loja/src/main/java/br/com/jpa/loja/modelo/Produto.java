@@ -28,7 +28,7 @@ public class Produto {
 
 	private LocalDate dataCadastro = LocalDate.now();
 
-	@ManyToOne //muitos Produtos estao vinculados a uma Categoria. Uma Categoria pode ter muitos Produtos
+	@ManyToOne //um Produto esta vinculado a uma Categoria. Uma Categoria pode ter muitos Produtos
 	private Categoria categoria;
 	
 	public Produto() {
