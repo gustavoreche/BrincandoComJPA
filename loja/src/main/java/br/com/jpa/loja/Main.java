@@ -1,6 +1,7 @@
 package br.com.jpa.loja;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,6 +15,7 @@ import br.com.jpa.loja.modelo.ItemPedido;
 import br.com.jpa.loja.modelo.Pedido;
 import br.com.jpa.loja.modelo.Produto;
 import br.com.jpa.loja.util.JPAUtil;
+import br.com.jpa.loja.vo.RelatorioDeVendasVO;
 
 public class Main {
 	
@@ -74,6 +76,13 @@ public class Main {
 		System.out.println(pedido);
 		
 		entityManager.getTransaction().commit();
+		
+		BigDecimal totalVendido = pedidoDAO.valorTotalVendido();
+		System.out.println("Valor total vendido: " + totalVendido);
+		
+		List<RelatorioDeVendasVO> relatorioDeVendas = pedidoDAO.relatorioDeVendas();
+		relatorioDeVendas.forEach(System.out::println);
+		
 		entityManager.close();
 	}
 

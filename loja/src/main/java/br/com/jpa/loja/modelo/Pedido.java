@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,11 +25,19 @@ public class Pedido {
 	private Long id;
 
 	@Column(name = "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 
 	private LocalDate data = LocalDate.now();
 
-	@ManyToOne //um Pedido esta vinculado a um Cliente. Um Cliente pode ter muitos Pedidos
+	@ManyToOne(fetch = FetchType.LAZY) //um Pedido esta vinculado a um Cliente. Um Cliente pode ter muitos Pedidos
+	/*
+	 Quando existe o relacionamento @ManyToOne, por padrão o JPA adota o seu carregamento com EAGER(ansioso), ou seja,
+	 ele vai realizar o JOIN com o Cliente mesmo sem precisar usar.	
+	 
+
+	 Já quando existe o relacionamento @OneToMany, por padrão o JPA adota o seu carregamento com LAZY(preguiçoso), ou seja,
+	 ele vai realizar o JOIN com o Cliente somente se for acessado.	 
+	 */
 	private Cliente cliente;
 	
 /*
@@ -54,6 +63,7 @@ public class Pedido {
 	public void adicionaItem(ItemPedido item) {
 		item.setPedido(this);
 		this.itens.add(item);
+		this.valorTotal = this.valorTotal.add(item.getValor());
 	}
 
 	public Long getId() {
@@ -61,7 +71,6 @@ public class Pedido {
 	}
 
 	public BigDecimal getValorTotal() {
-		this.itens.forEach(item -> valorTotal = item.getPrecoUnitario().multiply(new BigDecimal(item.getQuantidade())));
 		return valorTotal;
 	}
 
@@ -79,7 +88,7 @@ public class Pedido {
 	
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", valorTotal=" + getValorTotal() + ", data=" + data + ", cliente=" + cliente
+		return "Pedido [id=" + id + ", valorTotal=" + valorTotal + ", data=" + data + ", cliente=" + cliente
 				+ ", itens=" + itens + "]";
 	}
 
