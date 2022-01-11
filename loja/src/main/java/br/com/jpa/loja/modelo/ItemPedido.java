@@ -66,8 +66,8 @@ public class ItemPedido {
 	
 	@Override
 	public String toString() {
-		return "ItemPedido [id=" + id + ", precoUnitario=" + precoUnitario + ", quantidade=" + quantidade +
-				", produto=" + produto + "]";
+		return "\nItemPedido: id=" + this.id + " || precoUnitario=" + this.precoUnitario + " || quantidade=" + this.quantidade
+				+ " || produto=" + this.produto;
 	}
 
 	public BigDecimal getValor() {

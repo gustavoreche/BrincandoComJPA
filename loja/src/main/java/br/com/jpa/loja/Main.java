@@ -83,6 +83,11 @@ public class Main {
 		List<RelatorioDeVendasVO> relatorioDeVendas = pedidoDAO.relatorioDeVendas();
 		relatorioDeVendas.forEach(System.out::println);
 		
+		System.out.println("---------------------------------");
+		Pedido buscaPedidoComCliente = pedidoDAO.buscaPedidoComCliente(1L);
+		System.out.println(buscaPedidoComCliente);
+		System.out.println("---------------------------------");
+		
 		entityManager.close();
 	}
 

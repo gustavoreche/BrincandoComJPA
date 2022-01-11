@@ -28,8 +28,10 @@ public class RelatorioDeVendasVO {
 
 	@Override
 	public String toString() {
-		return "RelatorioDeVendasVO [nomeProduto=" + nomeProduto + ", quantidadeVendida=" + quantidadeVendida
-				+ ", dataUltimaVenda=" + dataUltimaVenda + "]";
+		return "RelatorioDeVendasVO:\n"
+				+ "- nomeProduto=" + this.nomeProduto + "\n"
+				+ "- quantidadeVendida=" + this.quantidadeVendida + "\n"
+				+ "- dataUltimaVenda=" + this.dataUltimaVenda;
 	}
 	
 }

@@ -31,11 +31,11 @@ public class Pedido {
 
 	@ManyToOne(fetch = FetchType.LAZY) //um Pedido esta vinculado a um Cliente. Um Cliente pode ter muitos Pedidos
 	/*
-	 Quando existe o relacionamento @ManyToOne, por padrão o JPA adota o seu carregamento com EAGER(ansioso), ou seja,
+	 Quando existe o relacionamento @ManyToOne, por padrao o JPA adota o seu carregamento com EAGER(ansioso), ou seja,
 	 ele vai realizar o JOIN com o Cliente mesmo sem precisar usar.	
 	 
 
-	 Já quando existe o relacionamento @OneToMany, por padrão o JPA adota o seu carregamento com LAZY(preguiçoso), ou seja,
+	 Ja quando existe o relacionamento @OneToMany, por padrao o JPA adota o seu carregamento com LAZY(preguicoso), ou seja,
 	 ele vai realizar o JOIN com o Cliente somente se for acessado.	 
 	 */
 	private Cliente cliente;
@@ -45,7 +45,7 @@ public class Pedido {
 	@JoinTable
 	private List<Produto> produtos;
 * Os passos acima seria caso fosse uma tabela apenas com as chaves primarias de Pedido e Produto. Porem como queremos
-* adicionar mais campos a essa tabela, sera criado uma nova entidade. É o que chamados de RELACIONAMENTO BIDIRECIONAL
+* adicionar mais campos a essa tabela, sera criado uma nova entidade. Eh o que chamados de RELACIONAMENTO BIDIRECIONAL
  */
 	
 	@OneToMany(mappedBy = "pedidoDaItemPedido", cascade = CascadeType.ALL) //Eh utilizado quando o relacionamento eh de muitos para muitos, 
@@ -88,8 +88,12 @@ public class Pedido {
 	
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", valorTotal=" + valorTotal + ", data=" + data + ", cliente=" + cliente
-				+ ", itens=" + itens + "]";
+		return "Pedido:\n"
+				+ "- id=" + this.id + "\n"
+				+ "- valorTotal=" + this.valorTotal + "\n"
+				+ "- data=" + this.data + "\n"
+				+ "- cliente=" + this.cliente + "\n"
+				+ "- itens=" + this.itens;
 	}
 
 }

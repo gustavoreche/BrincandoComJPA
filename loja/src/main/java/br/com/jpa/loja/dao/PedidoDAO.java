@@ -39,4 +39,11 @@ public class PedidoDAO {
 				.getResultList();
 	}
 	
+	//JOIN FETCH serve para trazer outro Objeto que esta configurado como LAZY e o EntityManager esta fechado.
+	public Pedido buscaPedidoComCliente(Long id) {
+		return entityManager.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id", Pedido.class)
+				.setParameter("id", id)
+				.getSingleResult();
+	}
+	
 }

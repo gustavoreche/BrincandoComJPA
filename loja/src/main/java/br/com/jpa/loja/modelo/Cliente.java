@@ -1,5 +1,6 @@
 package br.com.jpa.loja.modelo;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,13 +15,11 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String nome;
-
-	private String cpf;
+	@Embedded
+	private DadosPessoais dadosPessoais;
 
 	public Cliente(String nome, String cpf) {
-		this.nome = nome;
-		this.cpf = cpf;
+		this.dadosPessoais = new DadosPessoais(nome, cpf);
 	}
 	
 	public Cliente() {
@@ -30,17 +29,14 @@ public class Cliente {
 		return id;
 	}
 	
-	public String getNome() {
-		return nome;
-	}
-	
-	public String getCpf() {
-		return cpf;
+	public DadosPessoais getDadosPessoais() {
+		return dadosPessoais;
 	}
 	
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + "]";
+		return "Cliente: id=" + this.id + " || nome=" + this.dadosPessoais.getNome() 
+			+ " || cpf=" + this.dadosPessoais.getCpf();
 	}
 
 }
